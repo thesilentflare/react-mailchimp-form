@@ -1,6 +1,7 @@
 import React from "react"
 import jsonp from "jsonp"
 import PropTypes from 'prop-types';
+import {Button, TextField, FormControl, FormHelperText} from '@material-ui/core';
 
 class Mailchimp extends React.Component {
   state = {};
@@ -43,20 +44,20 @@ class Mailchimp extends React.Component {
     return (
       <form onSubmit={this.handleSubmit.bind(this)} className={className}>
         {fields.map(input =>
-          <input
+          <TextField
             {...input}
             key={input.name}
             onChange={({ target }) => this.setState({ [input.name]: target.value })}
             defaultValue={this.state[input.name]}
           />
         )}
-        <button
+        <Button
           disabled={status === "sending" || status === "success"}
           type="submit"
           className={buttonClassName}
         >
           {messages.button}
-        </button>
+        </Button>
         <div className='msg-alert'>
           {status === "sending" && <p style={styles.sendingMsg}>{messages.sending}</p>}
           {status === "success" && <p style={styles.successMsg}>{messages.success}</p>}
